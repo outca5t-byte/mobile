@@ -22,7 +22,7 @@ void main() {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "Enter username",
+                      "Create an account",
 
                       style: TextStyle(
                         color: Colors.amber,
@@ -32,13 +32,14 @@ void main() {
                     ),
                   ],
                 ),
+                Text("Name"),
                 SizedBox(height: 20),
                 TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    hintText: "Use email or phone number",
+                    hintText: "Name",
                     hintStyle: TextStyle(color: Colors.white),
                     prefixIcon: Icon(Icons.person),
                     prefixIconColor: Colors.white,
@@ -54,7 +55,7 @@ void main() {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        "Enter password",
+                        "Email Address",
 
                         style: TextStyle(
                           color: Colors.amber,
@@ -71,76 +72,70 @@ void main() {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    hintText: "Type recent password",
+                    hintText: "name@email.com",
+                    hintStyle: TextStyle(color: Colors.white),
+                    prefixIcon: Icon(Icons.email),
+                    prefixIconColor: Colors.white,
+                  ),
+                ),
+
+                Text(
+                  "Password",
+
+                  style: TextStyle(
+                    color: Colors.amber,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    hintText: "Password",
                     hintStyle: TextStyle(color: Colors.white),
                     prefixIcon: Icon(Icons.person),
                     prefixIconColor: Colors.white,
                     suffixIcon: Icon(Icons.visibility),
                   ),
                 ),
-                SizedBox(height: 50),
-                // MaterialButton(
-                //   onPressed: () {},
-                //   hoverColor: Colors.blue,
-                //   color: Colors.black,
-                //   child: Text(
-                //     "login",
-                //     style: TextStyle(
-                //       color: Colors.white,
-                //       fontSize: 23,
-                //       fontWeight: FontWeight.w400,
-                //     ),
-                //   ),
-                // ),
-                Container(
-                  height: 40,
-                  alignment: Alignment.center,
 
-                  decoration: BoxDecoration(
+                Text(
+                  "Confirm password",
+
+                  style: TextStyle(
                     color: Colors.amber,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    "Login",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 23,
-                      fontWeight: FontWeight.w400,
-                    ),
+                    fontSize: 24,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                ), // align the text below with the login bar
-                Row(
-                  children: [
-                    Text("New User?", style: TextStyle(color: Colors.white)),
-                    SizedBox(width: 10), // space between the 2 (width)
-                    Text("Sign in", style: TextStyle(color: Colors.white)),
-                    Spacer(), // space between the 2 (height)
-                    Text(
-                      "Forgot password?",
-                      style: TextStyle(color: Colors.white),
+                SizedBox(height: 20),
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    SizedBox(width: 10),
-                    Text("Reset ", style: TextStyle(color: Colors.white)),
-                  ],
+                    hintText: " Confirm Password",
+                    hintStyle: TextStyle(color: Colors.white),
+                    prefixIcon: Icon(Icons.person),
+                    prefixIconColor: Colors.white,
+                    suffixIcon: Icon(Icons.visibility),
+                  ),
                 ),
+                SizedBox(height: 20),
+                MaterialButton(
+                  onPressed: () {},
+                  color: Colors.amber,
+                  child: Text("Register"),
+                ),
+                SizedBox(height: 50),
               ],
             ),
           ),
         ),
-        // appBar: AppBar(
-        //   backgroundColor: Colors.blueGrey,
-        //   title: Text(
-        //     "Login Screen",
-        //     style: TextStyle(color: Colors.red, fontSize: 24),
-        //   ),
-        //   centerTitle: true,
-        // ),
       ),
     ),
   );
 }
-// created 4 news folders under lib called  configs, controllers, models and views
-// created a file in configs called colors.dart
