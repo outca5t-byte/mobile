@@ -140,7 +140,7 @@ class _SignUpState extends State<SignUp> {
                 child: GestureDetector(
                   child: Text("Register"),
                   onTap: () {
-                    Get.toNamed("/");
+                    Get.toNamed("/"); // from signup to login
                   },
                 ),
               ),
