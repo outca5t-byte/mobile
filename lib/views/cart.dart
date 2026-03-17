@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_application_1/configs/colors.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+class CartScreen extends StatefulWidget {
+  const CartScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<CartScreen> createState() => _CartScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,42 +24,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Image.asset('assets/image.png'),
               SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    " Hi User. Here is what we know about you",
-                    style: TextStyle(fontWeight: FontWeight.w300),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "This is your cart",
+                      style: TextStyle(fontWeight: FontWeight.w300),
+                    ),
+                  ),
+                  GridView.builder(
+                    itemCount: 4,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 1.1,
+                    ),
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: buttonColor,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
               SizedBox(height: 50),
-              Text("Name"),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-              ),
-              SizedBox(height: 10),
-              Text("Email Address"),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-              ),
-              Text("Address"),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-              ),
-              SizedBox(height: 30),
+
               GestureDetector(
                 child: Container(
                   height: 40,

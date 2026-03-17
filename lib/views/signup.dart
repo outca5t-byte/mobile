@@ -14,7 +14,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 33, 32, 50),
+      backgroundColor: const Color.fromARGB(255, 19, 25, 33),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
@@ -55,7 +55,7 @@ class _SignUpState extends State<SignUp> {
               ),
 
               SizedBox(height: 30),
-              TextField(),
+
               SizedBox(height: 30),
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
@@ -135,7 +135,7 @@ class _SignUpState extends State<SignUp> {
               SizedBox(height: 20),
               MaterialButton(
                 onPressed: () {},
-                color: secondaryColor,
+                color: buttonColor,
 
                 child: GestureDetector(
                   child: Text("Register"),

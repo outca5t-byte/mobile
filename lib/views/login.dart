@@ -106,13 +106,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   alignment: Alignment.center,
 
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(54, 255, 141, 200),
+                    color: const Color.fromARGB(242, 244, 190, 13),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
                     "Login",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       fontSize: 23,
                       fontWeight: FontWeight.w400,
                     ),

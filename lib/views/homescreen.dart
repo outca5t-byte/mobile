@@ -1,6 +1,11 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/configs/colors.dart';
+import 'package:flutter_application_1/views/profile.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+
+import '../configs/colors.dart' as colors show secondaryColor;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,15 +22,40 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: secondaryColor,
         buttonBackgroundColor: primaryColor,
 
-        items: const <Widget>[
-          Icon(Icons.dashboard, size: 30),
-          Icon(Icons.category, size: 30),
-          Icon(Icons.list, size: 30),
-          Icon(Icons.person, size: 30),
+        items: <Widget>[
+          const Icon(Icons.dashboard, size: 30),
+          const Icon(Icons.category, size: 30),
+          GestureDetector(
+            child: const Icon(Icons.list, size: 30),
+            onTap: () {
+              Get.offAndToNamed("/cartscreen");
+            },
+          ),
+          GestureDetector(
+            child: const Icon(Icons.person, size: 30),
+            onTap: () {
+              Get.offAndToNamed("/profilescreen");
+            },
+          ),
         ],
         onTap: (index) {
           //Handle button tap
         },
+      ),
+
+      body: Padding(
+        padding: EdgeInsets.all(15),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [Text("Hi user")],
+          ),
+        ),
+      ),
+      appBar: AppBar(
+        backgroundColor: colors.secondaryColor,
+        title: Image.asset('assets/image.png', height: 70, width: 80),
       ),
     );
   }
