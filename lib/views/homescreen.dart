@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
         items: <Widget>[
           const Icon(Icons.dashboard, size: 30),
-          const Icon(Icons.category, size: 30),
+
           GestureDetector(
             child: const Icon(Icons.list, size: 30),
             onTap: () {

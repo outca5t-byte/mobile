@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_application_1/configs/colors.dart';
+import 'package:flutter_application_1/configs/colors.dart' as colors;
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
@@ -22,8 +23,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
+
             children: [
-              Image.asset('assets/image.png'),
+              AppBar(
+                title: Image.asset('assets/image.png', height: 70, width: 80),
+                backgroundColor: colors.secondaryColor,
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: buttonColor,
+                    radius: 50,
+                    child: Icon(Icons.person, size: 40, color: Colors.white),
+                  ),
+                ],
+              ),
+
               SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -53,6 +71,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               Text("Address"),
+              TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              Text("Phone Number"),
               TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(

@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/configs/colors.dart';
+import 'package:flutter_application_1/controllers/logincontroller.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+
+Logincontroller logincontroller = Get.put(Logincontroller());
+TextEditingController usernamecontroller = TextEditingController();
+TextEditingController passwordcontroller = TextEditingController();
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -42,6 +48,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 20),
               TextField(
+                style: TextStyle(color: buttonColor),
+                controller: usernamecontroller,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -74,16 +82,30 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: 20),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
+              Obx(
+                () => TextField(
+                  obscureText: !logincontroller.isPassVisible.value,
+                  style: TextStyle(color: buttonColor),
+                  controller: passwordcontroller,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    hintText: "Type recent password",
+                    hintStyle: TextStyle(color: Colors.white),
+                    prefixIcon: Icon(Icons.person),
+                    prefixIconColor: Colors.white,
+                    suffixIcon: GestureDetector(
+                      child: Icon(
+                        logincontroller.isPassVisible.value
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                      ),
+                      onTap: () {
+                        logincontroller.togglePasswordVisbility();
+                      },
+                    ),
                   ),
-                  hintText: "Type recent password",
-                  hintStyle: TextStyle(color: Colors.white),
-                  prefixIcon: Icon(Icons.person),
-                  prefixIconColor: Colors.white,
-                  suffixIcon: Icon(Icons.visibility),
                 ),
               ),
               SizedBox(height: 50),
@@ -119,7 +141,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 onTap: () {
-                  Get.offAndToNamed("/homescreen");
+                  bool success = logincontroller.login(
+                    usernamecontroller.text,
+                    passwordcontroller.text,
+                  );
+                  if (success) {
+                    Get.offAndToNamed("/homescreen");
+                  } else {
+                    Get.snackbar(
+                      backgroundColor: Colors.amberAccent,
+                      animationDuration: Duration(seconds: 4),
+                      "Login failed",
+                      "Invalid username or password",
+                    );
+                  }
                 },
               ),
               Padding(
@@ -132,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   GestureDetector(
                     child: Text(
                       "Sign in",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.blue),
                     ),
                     onTap: () {
                       Get.toNamed("/signup");
