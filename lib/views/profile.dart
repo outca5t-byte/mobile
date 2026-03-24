@@ -88,6 +88,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               SizedBox(height: 30),
+
+              GestureDetector(
+                child: Text("Logout"),
+                onTap: () {
+                  Get.offAndToNamed("/");
+                },
+              ),
+              SizedBox(height: 20),
+
               GestureDetector(
                 child: Container(
                   height: 40,

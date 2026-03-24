@@ -45,11 +45,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
       body: Padding(
         padding: EdgeInsets.all(15),
+
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [Text("Hi user")],
+            children: [
+              Text("Hi user"),
+
+              Text("Products available"),
+
+              Image.asset('assets/cinco.png', width: 400),
+              SizedBox(height: 20),
+              Image.asset('assets/inf.jpg', width: 400, height: 400),
+              SizedBox(height: 20),
+              Image.asset('assets/omni.jpg', width: 300),
+            ],
           ),
         ),
       ),
