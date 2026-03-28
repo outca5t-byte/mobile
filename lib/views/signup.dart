@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/configs/colors.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:http/http.dart' as http;
+
+TextEditingController FirstName = TextEditingController();
+TextEditingController MiddleName = TextEditingController();
+TextEditingController LastName = TextEditingController();
+TextEditingController EmailAddress = TextEditingController();
+TextEditingController Password = TextEditingController();
+TextEditingController PasswordConfirm = TextEditingController();
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -14,7 +23,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 19, 25, 33),
+      backgroundColor: const Color.fromARGB(255, 143, 180, 228),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
@@ -40,14 +49,49 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ],
               ),
-              Text("Name"),
+              Text("FirstName"),
               SizedBox(height: 20),
               TextField(
+                controller: FirstName,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  hintText: "Name",
+                  hintText: "Your first Name",
+                  hintStyle: TextStyle(color: Colors.white),
+                  prefixIcon: Icon(Icons.person),
+                  prefixIconColor: Colors.white,
+                ),
+              ),
+
+              SizedBox(height: 30),
+
+              Text("  MiddleName"),
+              SizedBox(height: 20),
+              TextField(
+                controller: MiddleName,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  hintText: "Your middle Name",
+                  hintStyle: TextStyle(color: Colors.white),
+                  prefixIcon: Icon(Icons.person),
+                  prefixIconColor: Colors.white,
+                ),
+              ),
+
+              SizedBox(height: 30),
+
+              Text("LastName"),
+              SizedBox(height: 20),
+              TextField(
+                controller: LastName,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  hintText: "Your last Name",
                   hintStyle: TextStyle(color: Colors.white),
                   prefixIcon: Icon(Icons.person),
                   prefixIconColor: Colors.white,
@@ -76,6 +120,7 @@ class _SignUpState extends State<SignUp> {
               ),
               SizedBox(height: 20),
               TextField(
+                controller: EmailAddress,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -98,6 +143,7 @@ class _SignUpState extends State<SignUp> {
               ),
 
               TextField(
+                controller: Password,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -121,6 +167,7 @@ class _SignUpState extends State<SignUp> {
               ),
               SizedBox(height: 20),
               TextField(
+                controller: PasswordConfirm,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -134,7 +181,15 @@ class _SignUpState extends State<SignUp> {
               ),
               SizedBox(height: 20),
               MaterialButton(
-                onPressed: () {},
+                onPressed: () async {
+                  final response = await http.get(
+                    Uri.parse(
+                      "http://localhost/user/create.php?FirstName=${FirstName.text}&MiddleName=${MiddleName.text}&LastName=${LastName.text}&EmailAddress=${EmailAddress.text}&Password=${Password.text}",
+                    ),
+                  );
+
+                  print(response.body);
+                },
                 color: buttonColor,
 
                 child: GestureDetector(
