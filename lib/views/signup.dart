@@ -5,12 +5,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:http/http.dart' as http;
 
-TextEditingController FirstName = TextEditingController();
-TextEditingController MiddleName = TextEditingController();
-TextEditingController LastName = TextEditingController();
-TextEditingController EmailAddress = TextEditingController();
-TextEditingController Password = TextEditingController();
-TextEditingController PasswordConfirm = TextEditingController();
+TextEditingController fname = TextEditingController();
+TextEditingController phone = TextEditingController();
+TextEditingController sname = TextEditingController();
+TextEditingController email = TextEditingController();
+TextEditingController password = TextEditingController();
+TextEditingController passwordConfirm = TextEditingController();
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -52,7 +52,7 @@ class _SignUpState extends State<SignUp> {
               Text("FirstName"),
               SizedBox(height: 20),
               TextField(
-                controller: FirstName,
+                controller: fname,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -66,10 +66,10 @@ class _SignUpState extends State<SignUp> {
 
               SizedBox(height: 30),
 
-              Text("  MiddleName"),
+              Text("  phone"),
               SizedBox(height: 20),
               TextField(
-                controller: MiddleName,
+                controller: phone,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -83,15 +83,15 @@ class _SignUpState extends State<SignUp> {
 
               SizedBox(height: 30),
 
-              Text("LastName"),
+              Text("SirName"),
               SizedBox(height: 20),
               TextField(
-                controller: LastName,
+                controller: sname,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  hintText: "Your last Name",
+                  hintText: "Your sir Name",
                   hintStyle: TextStyle(color: Colors.white),
                   prefixIcon: Icon(Icons.person),
                   prefixIconColor: Colors.white,
@@ -120,7 +120,7 @@ class _SignUpState extends State<SignUp> {
               ),
               SizedBox(height: 20),
               TextField(
-                controller: EmailAddress,
+                controller: email,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -143,7 +143,7 @@ class _SignUpState extends State<SignUp> {
               ),
 
               TextField(
-                controller: Password,
+                controller: password,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -167,7 +167,7 @@ class _SignUpState extends State<SignUp> {
               ),
               SizedBox(height: 20),
               TextField(
-                controller: PasswordConfirm,
+                controller: passwordConfirm,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -184,21 +184,16 @@ class _SignUpState extends State<SignUp> {
                 onPressed: () async {
                   final response = await http.get(
                     Uri.parse(
-                      "http://localhost/user/create.php?FirstName=${FirstName.text}&MiddleName=${MiddleName.text}&LastName=${LastName.text}&EmailAddress=${EmailAddress.text}&Password=${Password.text}",
+                      "http://192.168.0.104/users/create.php?fname=${fname.text}&sname${sname.text}&email=${email.text}&phone=${phone.text}&password=${password.text}",
                     ),
                   );
-
                   print(response.body);
                 },
                 color: buttonColor,
 
-                child: GestureDetector(
-                  child: Text("Register"),
-                  onTap: () {
-                    Get.toNamed("/"); // from signup to login
-                  },
-                ),
+                child: Text("Register"),
               ),
+
               SizedBox(height: 50),
             ],
           ),
