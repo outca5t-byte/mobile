@@ -74,7 +74,7 @@ class _SignUpState extends State<SignUp> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  hintText: "Your middle Name",
+                  hintText: "Your phone number",
                   hintStyle: TextStyle(color: Colors.white),
                   prefixIcon: Icon(Icons.person),
                   prefixIconColor: Colors.white,
@@ -91,7 +91,7 @@ class _SignUpState extends State<SignUp> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  hintText: "Your sir Name",
+                  hintText: "Your sir name",
                   hintStyle: TextStyle(color: Colors.white),
                   prefixIcon: Icon(Icons.person),
                   prefixIconColor: Colors.white,
@@ -184,7 +184,7 @@ class _SignUpState extends State<SignUp> {
                 onPressed: () async {
                   final response = await http.get(
                     Uri.parse(
-                      "http://192.168.0.104/users/create.php?fname=${fname.text}&sname${sname.text}&email=${email.text}&phone=${phone.text}&password=${password.text}",
+                      "http://localhost/users/create.php?fname=${fname.text}&sname${sname.text}&email=${email.text}&phone=${phone.text}&password=${password.text}",
                     ),
                   );
                   print(response.body);
@@ -192,6 +192,13 @@ class _SignUpState extends State<SignUp> {
                 color: buttonColor,
 
                 child: Text("Register"),
+              ),
+              SizedBox(height: 20),
+              GestureDetector(
+                child: Text("Sign in", style: TextStyle(color: Colors.blue)),
+                onTap: () {
+                  Get.toNamed("/");
+                },
               ),
 
               SizedBox(height: 50),
