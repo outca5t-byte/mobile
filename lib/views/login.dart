@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/configs/colors.dart';
 import 'package:flutter_application_1/controllers/logincontroller.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:http/http.dart' as http;
 
 Logincontroller logincontroller = Get.put(Logincontroller());
 TextEditingController usernamecontroller = TextEditingController();
@@ -17,6 +20,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController phone = TextEditingController();
+  TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Enter username",
+                    "Enter phone number",
 
                     style: TextStyle(
                       color: Colors.amber,
@@ -49,12 +54,12 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 20),
               TextField(
                 style: TextStyle(color: buttonColor),
-                controller: usernamecontroller,
+                controller: phone,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  hintText: "Use email or phone number",
+                  hintText: "Use phone number",
                   hintStyle: TextStyle(color: Colors.white),
                   prefixIcon: Icon(Icons.person),
                   prefixIconColor: Colors.white,
@@ -86,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 () => TextField(
                   obscureText: !logincontroller.isPassVisible.value,
                   style: TextStyle(color: buttonColor),
-                  controller: passwordcontroller,
+                  controller: password,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -109,54 +114,82 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: 50),
-              // MaterialButton(
-              //   onPressed: () {},
-              //   hoverColor: Colors.blue,
-              //   color: Colors.black,
-              //   child: Text(
-              //     "login",
-              //     style: TextStyle(
-              //       color: Colors.white,
-              //       fontSize: 23,
-              //       fontWeight: FontWeight.w400,
-              //     ),
-              //   ),
-              // ),
-              GestureDetector(
-                child: Container(
-                  height: 40,
-                  alignment: Alignment.center,
-
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(242, 244, 190, 13),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    "Login",
-                    style: TextStyle(
-                      color: const Color.fromARGB(255, 255, 255, 255),
-                      fontSize: 23,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  bool success = logincontroller.login(
-                    usernamecontroller.text,
-                    passwordcontroller.text,
-                  );
-                  if (success) {
-                    Get.offAndToNamed("/homescreen");
+              MaterialButton(
+                onPressed: () async {
+                  if (phone.text.isEmpty) {
+                    Get.snackbar("Error", "Phone number cannot be blank");
+                  } else if (password.text.isEmpty) {
+                    Get.snackbar("Error", "Password cannot be blank");
                   } else {
-                    Get.snackbar(
-                      backgroundColor: Colors.amberAccent,
-                      animationDuration: Duration(seconds: 4),
-                      "Login failed",
-                      "Invalid username or password",
+                    final response = await http.get(
+                      Uri.parse(
+                        "http://localhost/users/login.php?phone=${phone.text}&password=${password.text}",
+                      ),
                     );
+                    if (response.statusCode == 200) {
+                      final serverData = jsonDecode(response.body);
+                      if (serverData['code'] == 1) {
+                        String phone = serverData["users"][0]["phone"];
+                        print(phone);
+                        Get.offAndToNamed("/homescreen");
+                      } else {
+                        Get.snackbar("Invalid login", serverData["message"]);
+                      }
+                    } else {
+                      Get.snackbar(
+                        "Server error",
+                        "Error occurred while logging in ",
+                      );
+                    }
                   }
                 },
+
+                hoverColor: Colors.blue,
+                color: Colors.black,
+                child: Text(
+                  "login",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 23,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
               ),
+              // GestureDetector(
+              //   child: Container(
+              //     height: 40,
+              //     alignment: Alignment.center,
+
+              //     decoration: BoxDecoration(
+              //       color: const Color.fromARGB(242, 244, 190, 13),
+              //       borderRadius: BorderRadius.circular(20),
+              //     ),
+              //     child: Text(
+              //       "Login",
+              //       style: TextStyle(
+              //         color: const Color.fromARGB(255, 255, 255, 255),
+              //         fontSize: 23,
+              //         fontWeight: FontWeight.w400,
+              //       ),
+              //     ),
+              //   ),
+              //   onTap: () {
+              //     bool success = logincontroller.login(
+              //       usernamecontroller.text,
+              //       passwordcontroller.text,
+              //     );
+              //     if (success) {
+              //       Get.offAndToNamed("/homescreen");
+              //     } else {
+              //       Get.snackbar(
+              //         backgroundColor: Colors.amberAccent,
+              //         animationDuration: Duration(seconds: 4),
+              //         "Login failed",
+              //         "Invalid username or password",
+              //       );
+              //     }
+              //   },
+              // ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               ), // align the text below with the login bar
