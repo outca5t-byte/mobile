@@ -37,6 +37,12 @@ class _HomeScreenState extends State<HomeScreen> {
               Get.offAndToNamed("/profilescreen");
             },
           ),
+          GestureDetector(
+            child: const Icon(Icons.list_rounded, size: 30),
+            onTap: () {
+              Get.offAndToNamed("/productscreen");
+            },
+          ),
         ],
         onTap: (index) {
           //Handle button tap
