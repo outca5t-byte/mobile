@@ -27,7 +27,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   fetchProduct() async {
     final response = await http.get(
-      Uri.parse('http://localhost/products/read.php'),
+      Uri.parse('http://192.168.137.1/products/read.php'),
     );
     print(response.body);
     if (response.statusCode == 200) {
@@ -66,13 +66,15 @@ class _ProductScreenState extends State<ProductScreen> {
                     width: 40,
                     height: 50,
                   ),
-                  Column(
-                    children: [
-                      Text(myProducts[index].productname),
-                      Text(myProducts[index].supplier),
-                      Text(myProducts[index].image),
-                      Text(myProducts[index].price),
-                    ],
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text(myProducts[index].productname),
+                        Text(myProducts[index].supplier),
+                        Text(myProducts[index].image),
+                        Text(myProducts[index].price),
+                      ],
+                    ),
                   ),
                 ],
               )
