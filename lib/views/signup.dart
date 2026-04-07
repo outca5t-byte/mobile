@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/configs/colors.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -53,7 +54,7 @@ class _SignUpState extends State<SignUp> {
               ),
               Text("FirstName"),
               SizedBox(height: 20),
-              TextField(
+              TextFormField(
                 controller: fname,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -64,6 +65,9 @@ class _SignUpState extends State<SignUp> {
                   prefixIcon: Icon(Icons.person),
                   prefixIconColor: Colors.white,
                 ),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]')),
+                ],
               ),
 
               SizedBox(height: 30),
@@ -81,13 +85,16 @@ class _SignUpState extends State<SignUp> {
                   prefixIcon: Icon(Icons.person),
                   prefixIconColor: Colors.white,
                 ),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                ],
               ),
 
               SizedBox(height: 30),
 
               Text("SirName"),
               SizedBox(height: 20),
-              TextField(
+              TextFormField(
                 controller: sname,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -98,6 +105,9 @@ class _SignUpState extends State<SignUp> {
                   prefixIcon: Icon(Icons.person),
                   prefixIconColor: Colors.white,
                 ),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]')),
+                ],
               ),
 
               SizedBox(height: 30),
@@ -121,7 +131,7 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
               SizedBox(height: 20),
-              TextField(
+              TextFormField(
                 controller: email,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
