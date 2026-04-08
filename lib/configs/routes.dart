@@ -12,6 +12,6 @@ var routes = [
   GetPage(name: "/signup", page: () => SignUp()),
   GetPage(name: "/homescreen", page: () => HomeScreen()),
   GetPage(name: "/profilescreen", page: () => ProfileScreen()),
-  GetPage(name: "/cartscreen", page: () => CartScreen()),
+  GetPage(name: "/cartscreen", page: () => CartScreen(product: ),),
   GetPage(name: "/productscreen", page: () => ProductScreen()),
 ];

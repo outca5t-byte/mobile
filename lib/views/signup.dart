@@ -92,7 +92,7 @@ class _SignUpState extends State<SignUp> {
 
               SizedBox(height: 30),
 
-              Text("SirName"),
+              Text("SurName"),
               SizedBox(height: 20),
               TextFormField(
                 controller: sname,

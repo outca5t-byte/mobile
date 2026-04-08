@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/product_model.dart';
+import 'package:flutter_application_1/views/cart.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:http/http.dart' as http;
@@ -27,7 +28,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   fetchProduct() async {
     final response = await http.get(
-      Uri.parse('http://192.168.137.1/products/read.php'),
+      Uri.parse('http://10.7.1.150/products/read.php'),
     );
     print(response.body);
     if (response.statusCode == 200) {
@@ -53,32 +54,61 @@ class _ProductScreenState extends State<ProductScreen> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
+    if (!loaded) {
+      return Center(
+        child: CircularProgressIndicator(
+          color: Color.fromARGB(255, 59, 246, 46),
+        ),
+      );
+    }
     return ListView.builder(
       itemCount: myProducts.length,
       itemBuilder: (context, index) {
-        return loaded
-            ? Row(
-                children: [
-                  Image.network(
-                    "http://localhost/products/productimages/" +
-                        myProducts[index].image,
-                    width: 40,
-                    height: 50,
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Text(myProducts[index].productname),
-                        Text(myProducts[index].supplier),
-                        Text(myProducts[index].image),
-                        Text(myProducts[index].price),
-                      ],
-                    ),
-                  ),
-                ],
-              )
-            : Center(child: CircularProgressIndicator());
+        return Card(
+          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+
+          child: ListTile(
+            onTap: () {
+              Get.toNamed("/cartscreen", arguments: Product);
+            },
+            contentPadding: EdgeInsets.all(10),
+
+            leading: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                "http://10.7.1.150/products/productimages/" +
+                    myProducts[index].image,
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Icon(Icons.broken_image, size: 40);
+                },
+              ),
+            ),
+
+            title: Text(
+              myProducts[index].productname,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+
+            subtitle: Text(
+              myProducts[index].supplier,
+              style: TextStyle(fontSize: 14),
+            ),
+
+            trailing: Text(
+              "KSh " + myProducts[index].price,
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.green,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        );
       },
     );
   }

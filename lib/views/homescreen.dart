@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const Icon(Icons.dashboard, size: 30),
 
           GestureDetector(
-            child: const Icon(Icons.list, size: 30),
+            child: const Icon(Icons.shopping_cart, size: 30),
             onTap: () {
               Get.offAndToNamed("/cartscreen");
             },
@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           GestureDetector(
-            child: const Icon(Icons.list_rounded, size: 30),
+            child: const Icon(Icons.list, size: 30),
             onTap: () {
               Get.offAndToNamed("/productscreen");
             },
