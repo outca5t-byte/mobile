@@ -1,16 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/controllers/cartcontroller.dart';
 import 'package:flutter_application_1/models/product_model.dart';
-import 'package:flutter_application_1/views/cart.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
-var myProducts = [];
-bool loaded = false;
-// Product(productname: " cinco", supplier: "Sony", image: ''),
-// Product(productname: "omni", supplier: "marv", image: ''),
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
@@ -20,6 +13,11 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
+  List<Product> myProducts = [];
+  bool loaded = false;
+
+  final CartController cartController = Get.find();
+
   @override
   void initState() {
     fetchProduct();
@@ -27,89 +25,126 @@ class _ProductScreenState extends State<ProductScreen> {
   }
 
   fetchProduct() async {
-    final response = await http.get(
-      Uri.parse('http://10.7.1.150/products/read.php'),
-    );
-    print(response.body);
-    if (response.statusCode == 200) {
-      var serverData = jsonDecode(response.body);
-      var productData = serverData["data"];
+    try {
+      final response = await http
+          .get(Uri.parse('http://192.168.8.51/products/read.php'))
+          .timeout(Duration(seconds: 10));
 
-      for (var product in productData) {
-        myProducts.add(
-          Product(
-            productname: product["productname"],
-            supplier: product["supplier"],
-            image: product["image"],
-            price: product["price"],
-          ),
-        );
+      if (response.statusCode == 200) {
+        var serverData = jsonDecode(response.body);
+        var productData = serverData["data"];
+
+        myProducts.clear();
+
+        for (var product in productData) {
+          myProducts.add(
+            Product(
+              productname: product["productname"],
+              supplier: product["supplier"],
+              image: product["image"],
+              price: product["price"].toString(),
+            ),
+          );
+        }
+
+        setState(() {
+          loaded = true;
+        });
       }
+    } catch (e) {
+      print("ERROR: $e");
       setState(() {
         loaded = true;
       });
-    } else {
-      throw Exception("Failed to load products");
     }
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
     if (!loaded) {
-      return Center(
-        child: CircularProgressIndicator(
-          color: Color.fromARGB(255, 59, 246, 46),
-        ),
-      );
+      return Scaffold(body: Center(child: CircularProgressIndicator()));
     }
-    return ListView.builder(
-      itemCount: myProducts.length,
-      itemBuilder: (context, index) {
-        return Card(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
 
-          child: ListTile(
-            onTap: () {
-              Get.toNamed("/cartscreen", arguments: Product);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Products"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () {
+              Get.offAllNamed("/homescreen");
             },
-            contentPadding: EdgeInsets.all(10),
-
-            leading: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                "http://10.7.1.150/products/productimages/" +
-                    myProducts[index].image,
-                width: 60,
-                height: 60,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Icon(Icons.broken_image, size: 40);
-                },
-              ),
-            ),
-
-            title: Text(
-              myProducts[index].productname,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-
-            subtitle: Text(
-              myProducts[index].supplier,
-              style: TextStyle(fontSize: 14),
-            ),
-
-            trailing: Text(
-              "KSh " + myProducts[index].price,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.green,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
           ),
-        );
-      },
+          IconButton(
+            icon: Icon(Icons.shopping_cart),
+            onPressed: () {
+              Get.toNamed("/cartscreen");
+            },
+          ),
+        ],
+      ),
+
+      body: ListView.builder(
+        itemCount: myProducts.length,
+        itemBuilder: (context, index) {
+          var product = myProducts[index];
+
+          return Card(
+            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+
+            child: ListTile(
+              contentPadding: EdgeInsets.all(10),
+
+              leading: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  "http://192.168.8.51/products/productimages/" + product.image,
+                  width: 60,
+                  height: 60,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Icon(Icons.broken_image);
+                  },
+                ),
+              ),
+
+              title: Text(
+                product.productname,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+
+              subtitle: Text(product.supplier),
+
+              trailing: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "KSh ${product.price}",
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  IconButton(
+                    icon: Icon(Icons.add_shopping_cart),
+                    onPressed: () {
+                      cartController.addToCart(product);
+
+                      Get.snackbar(
+                        "Added",
+                        "${product.productname} added to cart",
+                        backgroundColor: Colors.green,
+                        colorText: Colors.white,
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
