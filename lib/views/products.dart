@@ -27,7 +27,7 @@ class _ProductScreenState extends State<ProductScreen> {
   fetchProduct() async {
     try {
       final response = await http
-          .get(Uri.parse('http://192.168.8.51/products/read.php'))
+          .get(Uri.parse('http://192.168.0.101/products/read.php'))
           .timeout(Duration(seconds: 10));
 
       if (response.statusCode == 200) {
@@ -98,7 +98,8 @@ class _ProductScreenState extends State<ProductScreen> {
               leading: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(
-                  "http://192.168.8.51/products/productimages/" + product.image,
+                  "http://192.168.0.101/products/productimages/" +
+                      product.image,
                   width: 60,
                   height: 60,
                   fit: BoxFit.cover,

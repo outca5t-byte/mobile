@@ -61,9 +61,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
               Image.asset('assets/cinco.png', width: 400),
               SizedBox(height: 20),
-              Image.asset('assets/inf.jpg', width: 400, height: 400),
+              Image.asset('assets/x.jpg', width: 400, height: 400),
               SizedBox(height: 20),
-              Image.asset('assets/omni.jpg', width: 300),
+              Image.asset('assets/sun.jpg', width: 300),
+              SizedBox(height: 20),
+              Image.asset('assets/pc.jpg', width: 300),
             ],
           ),
         ),

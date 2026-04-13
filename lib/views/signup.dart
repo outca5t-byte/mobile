@@ -26,7 +26,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 143, 180, 228),
+      backgroundColor: const Color.fromARGB(255, 23, 18, 15),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
@@ -52,7 +52,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ],
               ),
-              Text("FirstName"),
+              Text("FirstName", style: TextStyle(color: Colors.white)),
               SizedBox(height: 20),
               TextFormField(
                 controller: fname,
@@ -72,7 +72,7 @@ class _SignUpState extends State<SignUp> {
 
               SizedBox(height: 30),
 
-              Text("  phone"),
+              Text("  phone", style: TextStyle(color: Colors.white)),
               SizedBox(height: 20),
               TextField(
                 controller: phone,
@@ -92,7 +92,7 @@ class _SignUpState extends State<SignUp> {
 
               SizedBox(height: 30),
 
-              Text("SurName"),
+              Text("SurName", style: TextStyle(color: Colors.white)),
               SizedBox(height: 20),
               TextFormField(
                 controller: sname,

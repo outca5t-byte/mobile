@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 19, 25, 33),
+      backgroundColor: const Color.fromARGB(255, 23, 18, 15),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
