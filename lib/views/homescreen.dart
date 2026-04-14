@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/configs/colors.dart';
 import 'package:flutter_application_1/views/profile.dart';
+import 'package:flutter_application_1/views/signup.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
@@ -34,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
           GestureDetector(
             child: const Icon(Icons.person, size: 30),
             onTap: () {
-              Get.offAndToNamed("/profilescreen");
+              Get.offAndToNamed("/profilescreen", arguments: phone.text);
             },
           ),
           GestureDetector(

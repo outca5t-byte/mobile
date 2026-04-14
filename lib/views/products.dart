@@ -93,6 +93,7 @@ class _ProductScreenState extends State<ProductScreen> {
             margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
 
             child: ListTile(
+              isThreeLine: true,
               contentPadding: EdgeInsets.all(10),
 
               leading: ClipRRect(
@@ -116,19 +117,19 @@ class _ProductScreenState extends State<ProductScreen> {
 
               subtitle: Text(product.supplier),
 
-              trailing: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     "KSh ${product.price}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.green,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-
+                  const SizedBox(width: 8),
                   IconButton(
-                    icon: Icon(Icons.add_shopping_cart),
+                    icon: const Icon(Icons.add_shopping_cart),
                     onPressed: () {
                       cartController.addToCart(product);
 
